@@ -1,0 +1,22 @@
+syntax="proto3";
+package encode_decode;
+message VarintsA {
+    int32 a = 1;
+}
+
+message ZigZagA {
+    sint32 b = 1;
+}
+
+message StringA {
+    string a = 7;
+}
+
+message ReapeatedA {
+    repeated int32 a = 3;
+}
+
+message MultiFieldA {
+    int32 a = 1;
+    string b = 7;
+}
