@@ -65,4 +65,15 @@ func TestMessage(t *testing.T) {
 	if result6  != "08D3053A0A68656C6C6F776F726C64" {
 		t.Errorf("multiFieldA expected: 08D3053A0A68656C6C6F776F726C64, real: %s", result6)
 	}
+
+	embeddedA := EmbeddedA{
+		A: &StringA{
+			A: "helloworld",
+		},
+	}
+	byteArr, _ = proto.Marshal(&embeddedA)
+	result7 := fmt.Sprintf("%X", byteArr)
+	if result7 != "3A0C3A0A68656C6C6F776F726C64" {
+		t.Errorf("embeddedA expected: 3A0C3A0A68656C6C6F776F726C64, real: %s", result7)
+	}
 }

@@ -12,6 +12,10 @@ message StringA {
     string a = 7;
 }
 
+message EmbeddedA {
+    StringA a = 7;
+}
+
 message ReapeatedA {
     repeated int32 a = 3;
 }
