@@ -1,0 +1,20 @@
+syntax = "proto3";
+package validator;
+import "google/protobuf/descriptor.proto";
+option go_package = "github.com/lewis123456/protobuf-grpc-example/protobuf/validator";
+
+extend google.protobuf.FieldOptions {
+    Validator validate = 222;
+}
+
+message Validator {
+    string lt = 1;
+    string lte = 2;
+    string gt = 3;
+    string gte = 4;
+    string in = 5;
+    string nin = 6;
+    string eq = 7;
+    string ne = 8;
+    string required = 9;
+}

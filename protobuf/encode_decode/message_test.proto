@@ -24,3 +24,10 @@ message MultiFieldA {
     int32 a = 1;
     string b = 7;
 }
+
+message CompareMsg {
+    int64 offset = 1;
+    int64 limit = 2;
+    string email = 3;
+    MultiFieldA d = 4;
+}

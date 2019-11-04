@@ -1,6 +1,7 @@
 package encode_decode
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/golang/protobuf/proto"
 	"testing"
@@ -48,11 +49,11 @@ func TestMessage(t *testing.T) {
 
 	// size + values(ordered)
 	repeatedA := ReapeatedA{
-		A: []int32{1,2,3,4,5},
+		A: []int32{1, 2, 3, 4, 5},
 	}
 	byteArr, _ = proto.Marshal(&repeatedA)
 	result5 := fmt.Sprintf("%X", byteArr)
-	if result5  != "1A050102030405" {
+	if result5 != "1A050102030405" {
 		t.Errorf("repeated expected: 1A050102030405, real: %s", result5)
 	}
 
@@ -62,7 +63,7 @@ func TestMessage(t *testing.T) {
 	}
 	byteArr, _ = proto.Marshal(&multiFieldA)
 	result6 := fmt.Sprintf("%X", byteArr)
-	if result6  != "08D3053A0A68656C6C6F776F726C64" {
+	if result6 != "08D3053A0A68656C6C6F776F726C64" {
 		t.Errorf("multiFieldA expected: 08D3053A0A68656C6C6F776F726C64, real: %s", result6)
 	}
 
@@ -76,4 +77,29 @@ func TestMessage(t *testing.T) {
 	if result7 != "3A0C3A0A68656C6C6F776F726C64" {
 		t.Errorf("embeddedA expected: 3A0C3A0A68656C6C6F776F726C64, real: %s", result7)
 	}
+}
+
+func TestCompareJson(t *testing.T) {
+	protoMsg := CompareMsg{
+		Offset: 2,
+		Limit:  20,
+		Email:  "pengfei.li@shopee.com",
+		D: &MultiFieldA{
+			A: 8927,
+			B: "xyzabc",
+		},
+	}
+	protoBytes, _ := proto.Marshal(&protoMsg)
+	jsonBytes, _ := json.Marshal(
+		map[string]interface{}{
+			"offset": 2,
+			"limit":  1,
+			"email":  "pengfei.li@shopee.com",
+			"d": map[string]interface{}{
+				"a": 8927,
+				"b": "xyzabc",
+			},
+		},
+	)
+	fmt.Printf("protoBytes:%d, jsonBytes:%d", len(protoBytes), len(jsonBytes))
 }
